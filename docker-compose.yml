@@ -1,0 +1,24 @@
+version: "3"
+services:
+  web:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  # Rather than running the long line below. We use a docker-compose.yml file to streamline the process.
+  # docker run -it -p 3000:3000 -v /app/node_modules -v $(pwd):/app 21a867ae9d33
+
+  # Create second service to run test (Flaw is that you can edit it in the terminal with p w other commands)
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]

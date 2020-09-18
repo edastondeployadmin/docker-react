@@ -1,0 +1,16 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start"]
+
+# docker build -f Dockerfile.dev .
+# docker run -it -p 3000:3000 d34f9f3ff146
+# docker-compose down && docker-compose up --build
+#   web:
+    # stdin_open: true
